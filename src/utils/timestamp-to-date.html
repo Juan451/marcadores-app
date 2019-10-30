@@ -1,0 +1,96 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+
+<dom-module id="timestamp-to-date">
+    <template>
+        <style>
+            :host {
+                display: inline;
+                @apply --timestamp-to-date;
+            }
+        </style>
+
+        [[timestamp]]
+        [[date]]
+    </template>
+
+    <script>
+        /**
+         * `timestamp-to-date` Description
+         *
+         * @summary ShortDescription.
+         * @customElement
+         * @polymer
+         * @extends {Polymer.Element}
+         /**
+          * ## Polymer App Toolbox - Starter Kit
+
+                <timestamp-to-date>
+
+                ## Polymer element to display a date 
+
+                Polymer component to show a date, in an appropiate format to human read.  
+
+                To date to display is entered by setting timestamp.
+
+                It also posible to set a format to introduce the way to present the date for the user. 
+
+                ```html
+                <timestamp-to-date
+                timestamp="491066777700"
+                formate="en"
+                ></timestamp-to-date>
+                ```
+                ## Styling
+
+                Custom propertie | Description | Default
+                -----------------|-------------|---------
+                --timestamp-to-date | Mixin  applied to entire element | {}
+          */
+
+        class TimestampToDate extends Polymer.Element {
+            /**
+             * String providing the tag name to register the element under.
+             */
+            static get is() {
+                return 'timestamp-to-date';
+            }
+
+
+            static get properties() { //las propiedades de los componentes, son los datos
+                //que el componente maneja 
+                return {
+                    /**
+                      *The timestamp (miliseconds) of the date to display
+                      *"@type {String}
+                     */
+                    timestamp: {
+                        type: Number,
+                        value: '0'
+                    },
+
+                    /**
+                    *The format to apply to this date
+                    *Current valid formats: 'en', 'es' "(default en-EN)"
+                    *@type {String}
+                    */
+                    date: {
+                        type: String,
+                        computed: 'toDate(timestamp)'
+                    }
+                };
+            }
+
+            /**
+             * this function have a @param propertie of element(timestamp)
+             * 
+             */
+            toDate(timestamp) {
+                let date = new Date(timestamp);
+                return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+            }
+
+        }
+
+        window.customElements.define(TimestampToDate.is, TimestampToDate);
+    </script>
+</dom-module>

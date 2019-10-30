@@ -1,6 +1,6 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
 
-<dom-module id="contador-element">
+<dom-module id="mensaje-element">
     <template>
         <style>
             :host {
@@ -8,8 +8,7 @@
             }
         </style>
 
-        <button on-click="incrementar">Click!</button>
-        <p>Has hecho [[contador]] clics</p>
+        <p>[[saludo]]</p>
 
     </template>
 
@@ -22,31 +21,28 @@
          * @polymer
          * @extends {Polymer.Element}
          */
-        class ContadorElement extends Polymer.Element {
+        class MensajeElement extends Polymer.Element {
             /**
              * String providing the tag name to register the element under.
              */
             static get is() {
-                return 'contador-element';
+                return 'mensaje-element';
             }
-          
+
+            /**
+             * Object describing property-related metadata used by Polymer features
+             */
             static get properties() {
                 return {
-                    contador: {
-                        type: Number,
-                        value: 0
+                    saludo: {
+                        type: String,
+                        value: 'hola'
                     }
-                    
                 };
             }
-
-            incrementar(){
-                this.contador++;
-            }
-            
-
+           
         }
 
-        window.customElements.define(ContadorElement.is, ContadorElement);
+        window.customElements.define(MensajeElement.is, MensajeElement);
     </script>
 </dom-module>

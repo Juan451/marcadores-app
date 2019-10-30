@@ -1,0 +1,102 @@
+<link rel="import" href="/bower_components/polymer/polymer-element.html">
+
+<dom-module id="interruptor-element">
+    <template>
+        <style>
+            :host {
+                display: inline-block;
+                user-select: none;
+                cursor: pointer;
+
+            }
+            div {
+                display: inline-block;
+                padding: 10px;
+                border-radius: 5px;
+            }
+            .activo {
+                background-color: orangered;
+                color: white;
+            }
+            .inactivo {
+                background-color: #ddd;
+            }
+        </style>
+        <div class$="[[activoClass]]">
+            <slot></slot>
+       
+            </div>
+    </template>
+
+    <script>
+        /**
+         * `interruptor-element` Description
+         *
+         * @summary ShortDescription.
+         * @customElement
+         * @polymer
+         * @extends {Polymer.Element}
+         */
+        class InterruptorElement extends Polymer.Element {
+            /**
+             * String providing the tag name to register the element under.
+             */
+            static get is() {
+                return 'interruptor-element';
+            }
+
+            /**
+             * Object describing property-related metadata used by Polymer features
+             */
+            static get properties() {
+                return {
+                    activo: {
+                        type: Boolean,
+                        value: false
+                   
+                    },
+                    disabled: {
+                        type:Boolean,
+                        value: false
+                    },
+                    activoClass: {
+                        type: String,
+                        computed: 'cambiarClass(activo, disabled)'
+                    }
+                    
+                };
+            }
+            /**
+             * this Polymer @method execute when recieves an @event asociation like "click" event
+             * 
+             */ 
+            ready() { //Ready es un metodo especifico de Polymer que sirve para ejecutar
+                //cuando el codigo esta listo para recibir asociacion de eventos 
+                super.ready(); //para ejecutar necesitamos llamar al metodo ready del componente padre
+
+                this.addEventListener('click', () => {
+                    this.activo = !this.activo;
+                });
+
+            }
+            /**
+             * @function with two @params of the propertie of Polymer component 
+             * that active a switch boolean colours
+             * 
+             */
+            cambiarClass(activo,disabled){
+               if(disabled){
+                   return 'inactivo';
+               }
+                if(activo){
+                    return 'activo';
+                }else{
+                    return 'inactivo';
+                }
+            }
+
+        }
+
+        window.customElements.define(InterruptorElement.is, InterruptorElement);
+    </script>
+</dom-module>
